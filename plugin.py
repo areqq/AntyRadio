@@ -3,7 +3,7 @@ from enigma import eDVBVolumecontrol
 from Components.ActionMap import ActionMap
 from Components.AVSwitch import AVSwitch
 from Components.ConfigList import ConfigListScreen
-from Components.config import config, getConfigListEntry, ConfigSubsection, ConfigSelection, ConfigDirectory, NoSave, ConfigNothing, ConfigYesNo, ConfigText
+from Components.config import config, getConfigListEntry, ConfigSubsection, ConfigSelection, ConfigDirectory, NoSave, ConfigNothing, ConfigYesNo, ConfigText, ConfigInteger
 from Components.Label import Label
 from Components.Sources.StaticText import StaticText
 from Components.SystemInfo import SystemInfo
@@ -13,7 +13,8 @@ from Screens.Standby import Standby
 import os.path
 
 config.plugins.antyradio = ConfigSubsection()
-config.plugins.antyradio.startvol = ConfigSelection(default="0", choices = [("0", "last"),("10", "10"), ("20", "20"), ("30", "30"), ("40", "40"), ("50", "50"), ("60", "60"), ("70", "70")])
+config.plugins.antyradio.startvol = ConfigSelection(default = "0", choices = [("0", "last"),("10", "10"), ("20", "20"), ("30", "30"), ("40", "40"), ("50", "50"), ("60", "60"), ("70", "70")])
+config.plugins.antyradio.startpos = ConfigInteger(default = 1)
 config.plugins.antyradio.runscript = ConfigYesNo(default = False)
 config.plugins.antyradio.runmpd = ConfigYesNo(default = False)
 

@@ -73,7 +73,6 @@ class AQPlayer(Screen):
 
         for i in xrange(4):
             self["page%i" % i] = Label("")
-          
 
         for i in xrange(1, min( len(self.pl), 41)):
             self["p%i" % i] = Label("%i. %s" % (i, self.pl[i][0]) )
@@ -83,7 +82,7 @@ class AQPlayer(Screen):
         self.session.nav.event.append(self.__event)
         self.onClose.append(self.__onClose)
         self.volctrl = eDVBVolumecontrol.getInstance()
-        v = int(config.plugins.antyradio.startvol.value) 
+        v = int(config.plugins.antyradio.startvol.value)
         if v > 0:
             print "AQplayer setvolume", v
             self.volctrl.setVolume(v, v)
@@ -100,7 +99,12 @@ class AQPlayer(Screen):
         if config.plugins.antyradio.runmpd.value:
             self.mpd('play')
         else:
-            self.play(1)
+            ps = int(config.plugins.antyradio.startpos.value)
+            if ps > 0:
+                self.page = ps // 10
+                self.play(ps)
+            else:
+                self.play(1)
         self["myActionMap"] = ActionMap(["AQPlayerActions"],
         {
 #         "ok": self.cancel,
@@ -141,17 +145,17 @@ class AQPlayer(Screen):
    def mpd(self, co):
         os.system("killall nc; echo %s | nc 127.0.0.1 6600 &" % co)
         os.system("sleep 3; killall nc")
-        
+
    def volumeUp(self):
       self._keyPressed()
       self.volctrl.volumeUp()
       self["vol"].setText("V:%i" % self.volctrl.getVolume())
-	  
+
    def volumeDown(self):
       self._keyPressed()
       self.volctrl.volumeDown()
       self["vol"].setText("V:%i" % self.volctrl.getVolume())
-	  
+
    def volumeMute(self):
       self._keyPressed()
       self.volctrl.volumeToggleMute()
@@ -164,7 +168,7 @@ class AQPlayer(Screen):
       self["page%i" % self.page].setText('^^^')
       if q != self.page:
          self.play( (10 * self.page) + 1)
-        
+
    def zapdown(self):
       self._keyPressed()
       self.updatePage(1)
@@ -267,7 +271,7 @@ class AQPlayer(Screen):
       self.session.nav.event.remove(self.__event)
       print "AQPlayer: __onClose "
       self.session.nav.playService(self.oldService)
-      
+
    def __evUpdatedInfo(self):
       currPlay = self.session.nav.getCurrentService()
       sTagTrackNumber = currPlay.info().getInfo(iServiceInformation.sTagTrackNumber)
@@ -276,7 +280,7 @@ class AQPlayer(Screen):
       sTagArtist = currPlay.info().getInfoString(iServiceInformation.sTagArtist)
       sTagAlbum = currPlay.info().getInfoString(iServiceInformation.sTagAlbum)
       sTagGenre = currPlay.info().getInfoString(iServiceInformation.sTagGenre)
-      
+
       s = "%s %s %s" % (sTagArtist, sTagAlbum, sTagTitle)
       if len(s) > 4:
         self.p_title = s 
@@ -305,7 +309,7 @@ class AQPlayer(Screen):
          self.play_mp3(1)
       else:
          self.play(1)
-    
+
    def _keyPressed(self, key = None):
       self.inactiveCount = 0
 
@@ -333,7 +337,7 @@ class AQPlayer(Screen):
    def number(self, nr):
       self._keyPressed()
       self.play( self.page*10 + nr)
-  
+
    def info_update(self):
      m = ''
      if self.mp3:
@@ -353,7 +357,7 @@ class AQPlayer(Screen):
       self.session.nav.playService(fileRef)
       self.p_title = self.mp3[self.mp3id].split('/')[-1]
       self.info_update()
-      
+
    def play(self,id):
       self.mp3 = None
       self.mpd("stop")
@@ -385,11 +389,11 @@ class AQPlayer(Screen):
       self.played = id
       self.prevseek = 0
       self.session.nav.playService(fileRef)
-      
+
       self.p_title0 = "%i.%s" % (id, self.pl[id][0])
       self.p_title = ''
       self.info_update()
-      
+
       if self.audiotrack:
         self.selectSatTrack(self.audiotrack)
 
@@ -418,10 +422,12 @@ class AQPlayer(Screen):
    def blue(self):
       self.session.nav.stopService()
       self.mpd('play')
-      
+
    def cancel(self):
+      config.plugins.antyradio.startpos.setValue(self.played)
+      config.plugins.antyradio.startpos.save()
       self.close(None)
-      
+
    def hdmi1(self):
         try:
           from enigma import eHdmiCEC
@@ -475,7 +481,7 @@ class AQPlayer(Screen):
         except:
             import traceback
             traceback.print_exc()
- 
+
    def searchMusic(self, dir):
       m = []
       for root, dirs, files in os.walk(dir):
