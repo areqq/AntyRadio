@@ -1,0 +1,19 @@
+AntyRadio|http://94.23.89.48:7000/|http://rds.eurozet.pl/reader/var/antyradio.json|
+AntyRadio SAT|1:0:2:12e8:2e7c:13e:820000:0:0:0:?5|http://rds.eurozet.pl/reader/var/antyradio.json|
+Muzo FM|1:0:2:291F:1EDC:71:820000:0:0:0:?0|http://www.muzo.tv/muzo/onair.json|
+RMF 80s|http://files.kusmierz.be/rmf/80s-1.mp3||
+RMF FM|1:0:2:291B:1EDC:71:820000:0:0:0:?0|http://www.rmf.fm/radio/playlista_5.json.txt|
+Złote Przeboje|http://lodz.radio.pionier.net.pl:8000/pl/zloteprzeboje.ogg||
+Zlote Przeboje SAT|1:0:2:291C:1EDC:71:820000:0:0:0:?0|http://zloteprzeboje.tuba.pl/Widget?XmlFeed=zloteprzeboje&type=1&len=40|
+Wawa|http://acdn.smcloud.net/t050-1.aac||
+Eska Rock|http://s3.deb1.scdn.smcloud.net/t041-1.aac||
+Radio Zet|1:0:2:2922:1EDC:71:820000:0:0:0:?0|http://rds.eurozet.pl/reader/var/radiozet.json|
+ZET Chili|1:0:2:12e8:2e7c:13e:820000:0:0:0:?4|http://rds.eurozet.pl/reader/var/zetchilli.json|
+ZET GOLD|1:0:2:2908:1EDC:71:820000:0:0:0:?0|http://rds.eurozet.pl/reader/var/zetgold.json|
+PR 3|1:0:2:2921:1EDC:71:820000:0:0:0:?0
+TOK FM|1:0:2:12FE:2E7C:13E:820000:0:0:0:?0
+Arek MIX|/hdd/Muza/mix/|
+PR 3b|1:0:2:1313:2E7C:13E:820000:0:0:0:?0
+#//| - zaindeksuje wszystkie katalogi z tego katalogu
+//|/hdd/Muza/
+#example end

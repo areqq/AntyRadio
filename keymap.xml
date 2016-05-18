@@ -1,0 +1,54 @@
+<keymap>
+    <map context="AQPlayerActions">
+	<key id="KEY_OK" mapto="ok" flags="m" />
+	<key id="KEY_EXIT" mapto="cancel" flags="m" />
+	<key id="KEY_ESC" mapto="cancel" flags="m"/>
+	<key id="KEY_HOME" mapto="cancel" flags="m"/>
+	<key id="KEY_RED" mapto="red" flags="m" />
+	<key id="KEY_GREEN" mapto="green" flags="m" />
+	<key id="KEY_YELLOW" mapto="yellow" flags="m" />
+	<key id="KEY_BLUE" mapto="blue" flags="m" />
+	<key id="KEY_HELP" mapto="info" flags="m" />
+	<key id="KEY_MENU" mapto="menu" flags="m" />
+	<key id="KEY_UP" mapto="up" flags="m" />
+	<key id="KEY_DOWN" mapto="down" flags="m" /> 
+	<key id="KEY_LEFT" mapto="left" flags="m" />
+	<key id="KEY_RIGHT" mapto="right" flags="m" /> 
+
+	<key id="KEY_1" mapto="1" flags="m" />
+	<key id="KEY_2" mapto="2" flags="m" />
+	<key id="KEY_3" mapto="3" flags="m" />
+	<key id="KEY_4" mapto="4" flags="m" />
+	<key id="KEY_5" mapto="5" flags="m" />
+	<key id="KEY_6" mapto="6" flags="m" />
+	<key id="KEY_7" mapto="7" flags="m" />
+	<key id="KEY_8" mapto="8" flags="m" />
+	<key id="KEY_9" mapto="9" flags="m" />
+	<key id="KEY_0" mapto="0" flags="m" />
+     
+	<key id="KEY_VOLUMEUP" mapto="aqvolumeUp" flags="mr" />
+	<key id="KEY_VOLUMEDOWN" mapto="aqvolumeDown" flags="mr" />
+	<key id="KEY_MUTE" mapto="aqvolumeMute" flags="mr" />
+
+
+	<key id="KEY_CHANNELUP" mapto="nextBouquet" flags="mr" />
+	<key id="KEY_CHANNELDOWN" mapto="prevBouquet" flags="mr" />
+	<key id="KEY_STOP" mapto="halt" flags="m" />
+
+	<key id="KEY_PLAY" mapto="ok" flags="m" />
+		
+	<key id="KEY_PAUSE" mapto="pause" flags="m" />
+	<key id="KEY_PLAYPAUSE" mapto="pause" flags="m" />
+	<key id="KEY_PAGEUP" mapto="nextBouquet" flags="m" />
+	<key id="KEY_PAGEDOWN" mapto="prevBouquet" flags="m" /> 
+	<key id="KEY_PREVIOUS" mapto="zapup" flags="mr" />
+	<key id="KEY_NEXT" mapto="zapdown" flags="mr" />
+	<key id="KEY_REWIND" mapto="rewind" flags="b" />
+	<key id="KEY_FASTFORWARD" mapto="fastfor" flags="b" />
+	<key id="KEY_PREVIOUSSONG" mapto="rewind" flags="b" />
+	<key id="KEY_NEXTSONG" mapto="fastfor" flags="b" /> 
+	<key id="KEY_POWER" mapto="power" flags="b" />
+	<key id="KEY_POWER" mapto="power" flags="m" />
+	<key id="KEY_TV" mapto="keytv" flags="m" />
+    </map>
+</keymap>
