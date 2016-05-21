@@ -8,8 +8,9 @@
 	<key id="KEY_GREEN" mapto="green" flags="m" />
 	<key id="KEY_YELLOW" mapto="yellow" flags="m" />
 	<key id="KEY_BLUE" mapto="blue" flags="m" />
-	<key id="KEY_HELP" mapto="info" flags="m" />
+	<key id="KEY_INFO" mapto="info" flags="m" />
 	<key id="KEY_MENU" mapto="menu" flags="m" />
+	<key id="KEY_OPTION" mapto="menu" flags="m" />
 	<key id="KEY_UP" mapto="up" flags="m" />
 	<key id="KEY_DOWN" mapto="down" flags="m" /> 
 	<key id="KEY_LEFT" mapto="left" flags="m" />
@@ -25,24 +26,23 @@
 	<key id="KEY_8" mapto="8" flags="m" />
 	<key id="KEY_9" mapto="9" flags="m" />
 	<key id="KEY_0" mapto="0" flags="m" />
-     
+ 
 	<key id="KEY_VOLUMEUP" mapto="aqvolumeUp" flags="mr" />
 	<key id="KEY_VOLUMEDOWN" mapto="aqvolumeDown" flags="mr" />
 	<key id="KEY_MUTE" mapto="aqvolumeMute" flags="mr" />
 
-
-	<key id="KEY_CHANNELUP" mapto="nextBouquet" flags="mr" />
-	<key id="KEY_CHANNELDOWN" mapto="prevBouquet" flags="mr" />
+	<key id="KEY_CHANNELUP" mapto="zapup" flags="mr" />
+	<key id="KEY_CHANNELDOWN" mapto="zapdown" flags="mr" />
 	<key id="KEY_STOP" mapto="halt" flags="m" />
 
 	<key id="KEY_PLAY" mapto="ok" flags="m" />
-		
+
 	<key id="KEY_PAUSE" mapto="pause" flags="m" />
 	<key id="KEY_PLAYPAUSE" mapto="pause" flags="m" />
-	<key id="KEY_PAGEUP" mapto="nextBouquet" flags="m" />
-	<key id="KEY_PAGEDOWN" mapto="prevBouquet" flags="m" /> 
-	<key id="KEY_PREVIOUS" mapto="zapup" flags="mr" />
-	<key id="KEY_NEXT" mapto="zapdown" flags="mr" />
+	<key id="KEY_PAGEUP" mapto="zapup" flags="m" />
+	<key id="KEY_PAGEDOWN" mapto="zapdown" flags="m" /> 
+	<key id="KEY_PREVIOUS" mapto="zapdown" flags="mr" />
+	<key id="KEY_NEXT" mapto="zapup" flags="mr" />
 	<key id="KEY_REWIND" mapto="rewind" flags="b" />
 	<key id="KEY_FASTFORWARD" mapto="fastfor" flags="b" />
 	<key id="KEY_PREVIOUSSONG" mapto="rewind" flags="b" />
@@ -50,5 +50,6 @@
 	<key id="KEY_POWER" mapto="power" flags="b" />
 	<key id="KEY_POWER" mapto="power" flags="m" />
 	<key id="KEY_TV" mapto="keytv" flags="m" />
+	<key id="KEY_GOTO" mapto="keytv" flags="m" />
     </map>
 </keymap>
