@@ -9,7 +9,7 @@ from Screens.Screen import Screen
 
 class ConfigScreen(ConfigListScreen,Screen):
     skin = """
-        <screen position="100,100" size="550,400" title="" >
+        <screen position="100,100" size="550,400" title="Konfiguracja AntyRadio" >
             <widget name="config" position="0,0" size="550,360" scrollbarMode="showOnDemand" />
             <widget name="buttonred" position="10,360" size="100,40" valign="center" halign="center" zPosition="1"  transparent="1" foregroundColor="white" font="Regular;18"/>
             <widget name="buttongreen" position="120,360" size="100,40" valign="center" halign="center" zPosition="1"  transparent="1" foregroundColor="white" font="Regular;18"/>
@@ -21,9 +21,12 @@ class ConfigScreen(ConfigListScreen,Screen):
         Screen.__init__(self, session)
         self.list = []
         self.list.append(getConfigListEntry("Ustaw głośność przy starcie", config.plugins.antyradio.startvol))
-        self.list.append(getConfigListEntry("Uruchom skrypt przy standby/wakeup", config.plugins.antyradio.runscript))
+        self.list.append(getConfigListEntry("Uruchom skrypt podczas usypiania/budzenia", config.plugins.antyradio.runscript))
         self.list.append(getConfigListEntry("Uruchom mpd przy starcie a nie radio", config.plugins.antyradio.runmpd))
-        
+        self.list.append(getConfigListEntry("Zmień kierunek klawiszy góra/dół", config.plugins.antyradio.invertkeys))
+        if config.plugins.antyradio.useLibMedia.value:
+            self.list.append(getConfigListEntry("Używaj do odtwarzania mediów biblioteki", config.plugins.antyradio.libMedia))
+
         ConfigListScreen.__init__(self, self.list)
         self["buttonred"] = Label(_("cancel"))
         self["buttongreen"] = Label(_("ok"))
