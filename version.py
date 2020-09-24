@@ -3,7 +3,7 @@
 
 from twisted.web.client import getPage
 
-version = '15.01.18'
+version = '20.09.24'
 
 def safe_read(file):
     try:
