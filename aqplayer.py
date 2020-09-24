@@ -448,7 +448,7 @@ class AQPlayer(Screen):
                esr = "4099:0:0:0:0:0:0:0:0:0:" + fn
             else:
                esr = "4097:0:0:0:0:0:0:0:0:0:" + fn
-      elif fn.startswith('http://'):
+      elif fn.startswith('http'):
          if config.plugins.antyradio.useLibMedia.value and config.plugins.antyradio.libMedia.value == 'ep3':
             esr = "4099:0:0:0:0:0:0:0:0:0:" + quote(fn)
          else:
