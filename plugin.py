@@ -86,6 +86,11 @@ def AntyRadioStandby__init__(self, session):
   self["actions"] = ActionMap( [ "StandbyActions", "GlobalActions", "OkCancelActions", "TvRadioActions"],
     {
       "power": self.__aqPower,
+      "power_make": self.Power_make,
+      "power_break": self.Power_break,
+      "power_long": self.Power_long,
+      "power_repeat": self.Power_repeat,
+      "discrete_on": self.__aqPower,
       "volumeMute": self.toggleMute,
       "volumeDown": self.volDown,
       "volumeUp": self.volUp,
