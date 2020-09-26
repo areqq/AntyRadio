@@ -276,7 +276,12 @@ class AQPlayer(Screen):
       a, t = ('', '')
       try:
          r = html.replace('\n','')
-         if r.startswith('rdsData('): # antyradio
+         if 'nowyswiat' in self.rdsurl:
+            if '-' in html:
+                a, t = html.split('-', 1)
+            else:
+                a = html
+         elif r.startswith('rdsData('): # antyradio
             d = json.loads(r[8:-1])
             if d.has_key('now'):
                t = d['now'].get('title', '')
