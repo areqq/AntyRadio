@@ -1,0 +1,32 @@
+#!/bin/bash
+
+opt="-Asi -l 240 -d ./audio"
+
+streamripper "http://stream3.polskieradio.pl:8950/;.mp3" -a "01 Polskie Radio Jedynka" $opt &
+streamripper "http://stream3.polskieradio.pl:8952/;.mp3" -a "02 Polskie Radio Dwójka" $opt &
+streamripper "http://stream3.polskieradio.pl:8954/;.mp3" -a "03 Polskie Radio Trójka" $opt &
+streamripper "http://stream3.polskieradio.pl:8956/;" -a "04 Polskie Radio Czwórka" $opt &
+streamripper "http://stream3.polskieradio.pl:8080/;.mp3" -a "05 Polskie Radio 24" $opt &
+
+streamripper "http://195.150.20.9/RMFFM48" -a "11 RMF FM" $opt &
+streamripper "http://195.150.20.242/rmf_maxxx" -a "12 RMF Maxxx" $opt &
+streamripper "http://31.192.216.8/RMFCLASSIC48" -a "13 RMF Classic" $opt &
+
+streamripper "http://zet-net-01.cdn.eurozet.pl:8400" -a "21 Radio Zet" $opt &
+streamripper "http://ant-kat.cdn.eurozet.pl:8602" -a "22 Antyradio" $opt &
+streamripper "http://mel0101.cdn.eurozet.pl:8804/mel-ktw.mp3" -a "23 Meloradio" $opt &
+
+streamripper "http://waw01-02.ic.smcdn.pl:8000/t042-1.mp3" -a "31 Radio Eska" $opt &
+streamripper "http://waw01-02.ic.smcdn.pl:8000/t049-1.mp3" -a "32 Vox FM" $opt &
+streamripper "http://waw01-01.ic.smcdn.pl:8000/t050-1.mp3" -a "33 Radio WAWA" $opt &
+streamripper "http://plu01.cdn.eurozet.pl:8318/plu-waw.mp3" -a "34 Radio Plus" $opt &
+
+streamripper "http://gdansk1-1.radio.pionier.net.pl:8000/pl/tuba10-1.mp3" -a "41 Tok FM" $opt &
+streamripper "https://stream.open.fm/201" -a "42 Złote Przeboje" $opt &
+streamripper "https://stream.open.fm/203" -a "43 Radio Pogoda" $opt &
+streamripper "https://stream.open.fm/202" -a "44 Rock Radio" $opt &
+
+streamripper "https://n06a-eu.rcs.revma.com/1nnezw8qz7zuv?rj-ttl=5&rj-tok=AAABdY40jtAAhSn1mhKN8U6Tkg" -a "51 Muzo.fm" $opt &
+streamripper "http://198.50.238.178:5946/stream" -a "52 Radio Maryja" -u "noelo" $opt &
+
+wait
