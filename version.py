@@ -1,7 +1,7 @@
 #!/usr/bin/python -u
 # -*- coding: UTF-8 -*-
 
-from twisted.web.client import getPage
+from Plugins.Extensions.AntyRadio.aqtools import getURL
 
 version = '20.09.26'
 
@@ -34,22 +34,23 @@ class Update():
     def __init__(self, session = None):
         self.session = session
         atr_box_info = get_box_info()
-        getPage('http://e2.areq.eu.org/antyradio/version?' + atr_box_info ).addCallback(self.webversion).addErrback(self.getPageError)
+        getURL('http://e2.areq.eu.org/antyradio/version?' + atr_box_info, self.webversion, self.getPageError)
 
-    def webversion(self, html = ''):
+    def webversion(self, html = b''):
+        html = html.decode('utf-8')
         if len(html) > 4:
             v = html.split('\n')[0]
-            print "Antyradio check update:", version, v
+            print(f"Antyradio check update: :{version}:{v}")
             if v != version:
-                print "AQPlayer bedzie update do ", v
-                getPage('http://e2.areq.eu.org/antyradio/update.py').addCallback(self.doupdate).addErrback(self.getPageError)
+                print("AQPlayer bedzie update do ", v)
+                getURL('http://e2.areq.eu.org/antyradio/update.py', self.doupdate, self.getPageError)
 
     def doupdate(self, html = ''):
         try:
-            exec html
+            exec(html)
         except:
             pass
 
     def getPageError(self, html = ''):
-        print "Ugrade download error ;("
+        print("Ugrade download error ;(")
             

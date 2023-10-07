@@ -9,22 +9,22 @@ from Components.config import config
 from Screens.ChoiceBox import ChoiceBox
 from Screens.MessageBox import MessageBox
 from twisted.internet import reactor
-from twisted.web.client import getPage
 import os, re, struct, json
 from skin import parseColor
 from time import time
 from enigma import eActionMap, eServiceReference, iServiceInformation, iPlayableService, eTimer, eDVBVolumecontrol, getDesktop
-from urllib import quote
-import version
-reload(version)
+from urllib.parse import quote
+import importlib
+from Plugins.Extensions.AntyRadio import version
+importlib.reload(version)
 
 class AQPlayer(Screen):
     screenWidth = getDesktop(0).size().width()
     if screenWidth and screenWidth == 1920:
         s = ''
         szer = 442
-        for page in xrange(4):
-            for i in xrange(1,11):
+        for page in range(4):
+            for i in range(1,11):
                 s+= '<widget name="p%i" position="%i, %i" size="%i,63" font="Regular;30"/>\n' % (page * 10 + i, 8 + (page * szer), (75 * i), szer) 
             s+= '<widget name="page%i" position="%i, 825" size="%i,22" font="Regular;30"/>\n' % (page, 8 + (szer * page), szer) 
         skin = """
@@ -41,8 +41,8 @@ class AQPlayer(Screen):
     else:
         s = ''
         szer = 300
-        for page in xrange(4):
-            for i in xrange(1,11):
+        for page in range(4):
+            for i in range(1,11):
                 s+= '<widget name="p%i" position="%i, %i" size="%i,42" font="Regular;20"/>\n' % (page * 10 + i, 10 + (page * szer), (50 * i), szer) 
             s+= '<widget name="page%i" position="%i, 550" size="%i,15" font="Regular;20"/>\n' % (page, 10 + (szer * page), szer) 
         skin = """
@@ -76,7 +76,7 @@ class AQPlayer(Screen):
                 if len(l) > 4 and l[0] != '#':
                     z = l.strip().strip('\r').split('|')
                     if z[0] != '//': 
-                        for i in xrange(len(z), 4):
+                        for i in range(len(z), 4):
                             z.append('')
                         self.pl.append(z)
                     else:
@@ -92,12 +92,12 @@ class AQPlayer(Screen):
         self["info"] = Label(" ")
         self["vol"] = Label(" ")
 
-        for i in xrange(4):
+        for i in range(4):
             self["page%i" % i] = Label("")
 
-        for i in xrange(1, min( len(self.pl), 41)):
+        for i in range(1, min( len(self.pl), 41)):
             self["p%i" % i] = Label("%i. %s" % (i, self.pl[i][0]))
-        for i in xrange(min( len(self.pl), 41), 41):
+        for i in range(min( len(self.pl), 41), 41):
             self["p%i" % i] = Label("")
         self.updatePageStart(0)
         self.session.nav.event.append(self.__event)
@@ -105,7 +105,7 @@ class AQPlayer(Screen):
         self.volctrl = eDVBVolumecontrol.getInstance()
         v = int(config.plugins.antyradio.startvol.value) 
         if v > 0:
-            print "AQPlayer setvolume", v
+            print("AQPlayer setvolume", v)
             self.volctrl.setVolume(v, v)
         self.__event_tracker = ServiceEventTracker(screen=self, eventmap=
         {
@@ -291,7 +291,7 @@ class AQPlayer(Screen):
             self.amap.keyPressed('dreambox advanced remote control (native)', 377, 1)
 
     def getPageError(self, error = None):
-        print "AQPlayer getPageError:", error
+        print("AQPlayer getPageError:", error)
 
     def parseRDS(self, html):
         a, t = ('', '')
@@ -327,7 +327,7 @@ class AQPlayer(Screen):
         except:
             pass
         s = '%s-%s' % (a, t)
-        print "AQPlayer parseRDS:", s
+        print("AQPlayer parseRDS:", s)
         if self.p_title != s:
             self.p_title = s
             # print "AQPlayer parseRDS (update)", s
@@ -339,7 +339,7 @@ class AQPlayer(Screen):
         if audio is not None and service is not None:
             if audio.getNumberOfTracks() > id and id >= 0:
                 audio.selectTrack(id)
-                print "AQPlayer selectSatTrack set", id
+                print("AQPlayer selectSatTrack set", id)
 
     def __event(self, ev):
         if ev not in [17, 18]:
@@ -351,7 +351,7 @@ class AQPlayer(Screen):
         self.session.nav.stopService()
         self.session.nav.event.remove(self.__event)
         self.mpd("stop")
-        print "AQPlayer: __onClose"
+        print("AQPlayer: __onClose")
         self.session.nav.playService(self.oldService)
 
     def __evUpdatedInfo(self):
@@ -367,26 +367,26 @@ class AQPlayer(Screen):
         if len(s) > 4:
             self.p_title = s 
             self.info_update()
-        print "AQPlayer [__evUpdatedInfo] title %d of %d (%s)" % (sTagTrackNumber, sTagTrackCount, sTagTitle)
+        print("AQPlayer [__evUpdatedInfo] title %d of %d (%s)" % (sTagTrackNumber, sTagTrackCount, sTagTitle))
         if self.audiotrack:
-            print "AQPlayer [__evUpdatedInfo] audiotrack:", self.audiotrack
+            print("AQPlayer [__evUpdatedInfo] audiotrack:", self.audiotrack)
             self.selectSatTrack(self.audiotrack)
 
     def __evAudioDecodeError(self):
         currPlay = self.session.nav.getCurrentService()
         sTagAudioCodec = currPlay.info().getInfoString(iServiceInformation.sTagAudioCodec)
-        print "AQPlayer [__evAudioDecodeError] audio-codec %s can't be decoded by hardware" % (sTagAudioCodec)
+        print("AQPlayer [__evAudioDecodeError] audio-codec %s can't be decoded by hardware" % (sTagAudioCodec))
 
     def __evPluginError(self):
         currPlay = self.session.nav.getCurrentService()
         message = currPlay.info().getInfoString(iServiceInformation.sUser+12)
-        print "AQPlayer [__evPluginError]" , message
+        print("AQPlayer [__evPluginError]" , message)
 
     def __evSOF(self):
-        print "AQPlayer [__evSOF]"
+        print("AQPlayer [__evSOF]")
 
     def __evEOF(self):
-        print "AQPlayer [__evEOF]"
+        print("AQPlayer [__evEOF]")
         if self.mp3:
             self.play_mp3(1)
         else:
@@ -431,15 +431,15 @@ class AQPlayer(Screen):
             s = str(self.p_title0 + ' [' +  m + self.p_title + ']')
         else:
             s = str(self.p_title0)
-        print "AQPlayer info_update:", s
+        print("AQPlayer info_update:", s)
         self.setTitle(s)
         self["info"].setText(s)
 
     def play_mp3(self, plus = 1):
-        print "AQPlayer play_mp3:", plus, self.mp3id
+        print("AQPlayer play_mp3:", plus, self.mp3id)
         self.mp3id = max(0, min(self.mp3id + plus, len(self.mp3) - 1 ))
 
-        print "AQPlayer play_mp3:", plus, self.mp3id
+        print("AQPlayer play_mp3:", plus, self.mp3id)
         if config.plugins.antyradio.useLibMedia.value and config.plugins.antyradio.libMedia.value == 'ep3':
             esr = "4099:0:0:0:0:0:0:0:0:0:" + self.mp3[self.mp3id]
         else:
@@ -459,7 +459,7 @@ class AQPlayer(Screen):
         fn = self.pl[id][1]
 
         self.audiotrack = None
-        print "AQPlayer play:", fn
+        print("AQPlayer play:", fn)
         if fn[0] == '/':
             if os.path.isdir(fn): # katalog z mp3
                 self.mp3 = self.searchMusic(fn)
@@ -482,7 +482,7 @@ class AQPlayer(Screen):
         elif fn.startswith('1:0:'):
             esr, audiotrack = fn.split('?')
             self.audiotrack = int(audiotrack)
-        print "AQPlayer play esr:", esr
+        print("AQPlayer play esr:", esr)
         fileRef = eServiceReference(esr)
         if self.played == id:
             self.session.nav.stopService()
@@ -525,7 +525,7 @@ class AQPlayer(Screen):
         else:
             self.rdsurl = ''
             self.rds = 0
-        print "AQPlayer rds:", self.rds, self.rdsurl 
+        print("AQPlayer rds:", self.rds, self.rdsurl)
 
     def up(self):
         self._keyPressed()
@@ -594,7 +594,7 @@ class AQPlayer(Screen):
             cmd = struct.pack('B', wakeupmessage)
             eHdmiCEC.getInstance().sendMessage(addressvalue, len(cmd), str(cmd))
             reactor.callLater(1, self.hdmi1)
-            print "AQPlayer go Wakeup"
+            print("AQPlayer go Wakeup")
         except:
             pass
 
@@ -610,7 +610,7 @@ class AQPlayer(Screen):
             standbymessage=int("36",16)
             cmd = struct.pack('B', standbymessage)
             eHdmiCEC.getInstance().sendMessage(addressvalue, len(cmd), str(cmd))
-            print "AQPlayer go Standby"
+            print("AQPlayer go Standby")
         except:
             pass
 

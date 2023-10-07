@@ -53,8 +53,8 @@ def sessionstart(reason, **kwargs):
     global atr_first
     if "session" in kwargs and atr_first:
         atr_first = False
-        import version
-        u = version.Update(kwargs["session"])
+        from Plugins.Extensions.AntyRadio.version import Update
+        u = Update(kwargs["session"])
 
 def autostart(reason, *args, **kwargs):
     if reason == 0:
@@ -162,9 +162,8 @@ def LeaveMute(self):
 
 def startSetup(session, **kwargs):
     try:
-        import aqplayer
-        reload(aqplayer)
-        session.open(aqplayer.AQPlayer)
+        from Plugins.Extensions.AntyRadio.aqplayer import AQPlayer
+        session.open(AQPlayer)
     except:
         import traceback
         traceback.print_exc()
