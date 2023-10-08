@@ -268,7 +268,7 @@ class AQPlayer(Screen):
         if self.rds:
             if self.rds > 30:
                 # print "AQPlayer timerEvent RDS", self.rdsurl 
-                getPage(self.rdsurl).addCallback(self.parseRDS).addErrback(self.getPageError)
+                getURL(self.rdsurl, self.parseRDS, self.getPageError, None, True)
                 self.rds = 1
             else:
                 self.rds = self.rds + 1
