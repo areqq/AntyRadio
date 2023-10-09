@@ -15,6 +15,7 @@ from time import time
 from enigma import eActionMap, eServiceReference, iServiceInformation, iPlayableService, eTimer, eDVBVolumecontrol, getDesktop
 from urllib.parse import quote
 import importlib
+from Plugins.Extensions.AntyRadio.aqtools import getURL
 from Plugins.Extensions.AntyRadio import version
 importlib.reload(version)
 
