@@ -10,7 +10,7 @@ from Components.SystemInfo import SystemInfo
 from Plugins.Plugin import PluginDescriptor
 from Screens.Screen import Screen
 from Screens.Standby import Standby
-import os
+import os, os.path
 
 config.plugins.antyradio = ConfigSubsection()
 config.plugins.antyradio.startvol = ConfigSelection(default="0", choices = [("0", "last"),("10", "10"), ("20", "20"), ("30", "30"), ("40", "40"), ("50", "50"), ("60", "60"), ("70", "70"), ("80", "80"), ("90", "90"), ("100", "100")])
@@ -79,6 +79,7 @@ def StandbyScreenInit():
     Standby.__aqCallback = __aqCallback
     Standby.__aqPower = __aqPower
     Standby.aqwakeup = aqwakeup
+    Standby.downmix_ac3 = downmix_ac3
 
 def AntyRadioStandby__init__(self, session):
   StandbyScreen__init__(self, session)
@@ -98,7 +99,10 @@ def AntyRadioStandby__init__(self, session):
       "keyRadio": self.toggleAntyRadio
     }, -1)
   self.volctrl = eDVBVolumecontrol.getInstance()
-  self.downmix_config = config.av.downmix_ac3.value
+  try:
+    self.downmix_config = config.av.downmix_ac3.value
+  except:
+    self.downmix_config = True
   self.AntyRadio_enabled = False
   #if config.plugins.antyradio.standby_autostart.value:
   #  self.toggleAntyRadio()
@@ -109,7 +113,6 @@ def aqwakeup(self, s = True):
         f = "/usr/lib/enigma2/python/Plugins/Extensions/AntyRadio/standby.sh"
         if s:
             f = "/usr/lib/enigma2/python/Plugins/Extensions/AntyRadio/wakeup.sh"
-        import os, os.path
         if os.path.isfile(f):
             os.system("/bin/sh %s &" % f)
 
@@ -123,13 +126,22 @@ def VolUp(self):
 def VolDown(self):
     self.volctrl.volumeDown()
 
+def downmix_ac3(self,v):
+    try:
+        config.av.downmix_ac3.value = v
+    except:
+        pass
+
 def ToggleAntyRadio(self):
-    is_encoder = open("/proc/stb/avs/0/input", "r").read()[:-1].find("encoder") != -1
+    if os.path.isfile("/proc/stb/avs/0/input"):
+        is_encoder = open("/proc/stb/avs/0/input", "r").read()[:-1].find("encoder") != -1
+    else:
+        is_encoder = False
     is_mute = self.volctrl.isMuted()
     self.aqwakeup(not self.AntyRadio_enabled)
     if self.AntyRadio_enabled:
         self.AntyRadio_enabled = False
-        config.av.downmix_ac3.value = self.downmix_config
+        self.downmix_ac3(self.downmix_config)
         if not is_mute:
             self.volctrl.volumeToggleMute()
         if is_encoder:
@@ -139,7 +151,7 @@ def ToggleAntyRadio(self):
                 self.avswitch.setInput("AUX")
     else:
         self.AntyRadio_enabled = True
-        config.av.downmix_ac3.value = True
+        self.downmix_ac3(True)
         if is_mute:
             self.volctrl.volumeToggleMute()
         if not is_encoder:
@@ -156,7 +168,7 @@ def ToggleMute(self):
     self.volctrl.volumeToggleMute()
 
 def LeaveMute(self):
-    config.av.downmix_ac3.value = self.downmix_config
+    self.downmix_ac3(self.downmix_config)
     if self.volctrl.isMuted():
         eDVBVolumecontrol.getInstance().volumeToggleMute()
 
