@@ -269,7 +269,7 @@ class AQPlayer(Screen):
         if self.rds:
             if self.rds > 30:
                 # print "AQPlayer timerEvent RDS", self.rdsurl 
-                getURL(self.rdsurl, self.parseRDS, self.getPageError, None, True)
+                getURL(self.rdsurl, self.parseRDS, self.getPageError, True)
                 self.rds = 1
             else:
                 self.rds = self.rds + 1
@@ -620,9 +620,8 @@ class AQPlayer(Screen):
 
     def red(self):
         try:
-            import configure
-            reload(configure)
-            self.session.open(configure.ConfigScreen)
+            from Plugins.Extensions.AntyRadio.configure import ConfigScreen
+            self.session.open(ConfigScreen)
         except:
             import traceback
             traceback.print_exc()
